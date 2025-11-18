@@ -11,7 +11,6 @@ export default defineConfig({
       fileName: "index",
     },
     rollupOptions: {
-      // React는 소비 프로젝트가 설치하니까 번들에서 제외
       external: ["react", "react-dom"],
       output: {
         globals: {

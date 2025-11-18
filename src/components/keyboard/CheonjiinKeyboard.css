@@ -15,7 +15,6 @@
   text-align: left;
 }
 
-/* 현재 입력에서 줄바꿈 보이도록 */
 .cheon-header strong {
   white-space: pre-wrap;
 }
@@ -74,14 +73,10 @@
   border-color: transparent;
 }
 
-/* Shift 켜졌을 때 강조 */
 .cheon-key--shift-on {
   background: #dbeafe;
 }
 
-/* 기존 .cheon-grid 그대로 두고, 아래만 추가 */
-
-/* 영어 키보드는 4열 */
 .cheon-grid--english {
   grid-template-columns: repeat(4, 1fr);
 }

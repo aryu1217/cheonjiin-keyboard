@@ -8,7 +8,7 @@ export default function HangulKeyboard({
   onBackspace,
   goEnglishMode,
   goNumberMode,
-  goSymbolMode, // ✅ 새로 추가
+  goSymbolMode,
 }) {
   return (
     <div className="cheon-grid">
