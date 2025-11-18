@@ -182,9 +182,3 @@ function BottomSheetKeyboard({ open, value, onChange }) {
 
 - 키보드는 **“입력 로직 + 레이아웃”**만 제공하고,
 - 실제로 언제/어떻게 등장할지는 위처럼 프로젝트에서 바텀시트/모달로 감싸서 제어하는 패턴이 일반적입니다.
-
----
-
-## 라이센스
-
-MIT © 2025 Ryu Tae Hyun
