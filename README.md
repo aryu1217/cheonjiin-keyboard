@@ -1,26 +1,32 @@
-# cheonjiin-keyboard
+# react-cji-keyboard
 
 > **React용 천지인 + 영문 + 숫자 + 기호 커스텀 키보드 컴포넌트**
 
-스마트폰 천지인 키보드 느낌을 웹에서도 그대로 쓰고 싶은 사람을 위한  
-커스텀 가상 키보드입니다.
+스마트폰 천지인 키보드를 웹에서도 사용할 수 있는 커스텀 키보드입니다.
+<p>
+  <img width="413" height="219" alt="스크린샷 1"
+    src="https://github.com/user-attachments/assets/0231541c-2411-4300-b808-7713dbdd089c" />
+</p>
 
-- ✅ **천지인 한글 입력 로직** (점 / 가로 / 세로 조합)
-- ✅ 한글 자음 멀티키 (ㄱㅋㄲ, ㄷㅌㄸ …) 순환 입력
-- ✅ 영문 T9 스타일 키보드 + Shift(↑)로 대/소문자 토글
-- ✅ 숫자 키패드, 기호 키패드
-- ✅ 한/영/숫자/기호 모드 전환 버튼
-- ✅ 스페이스 / 엔터 / 백스페이스 지원
-- 🎨 CSS 클래스 기반 → 프로젝트에서 스타일 자유롭게 커스텀 가능
+<p>
+  <img width="402" height="207" alt="스크린샷 2"
+    src="https://github.com/user-attachments/assets/42c1af70-4277-4243-ae80-aee095e590ee" />
+</p>
+
+<p>
+  <img width="407" height="207" alt="스크린샷 3"
+    src="https://github.com/user-attachments/assets/403f90e3-4f7d-47c5-adf4-8b7bc227d64a" />
+</p>
+
 
 ---
 
 ## 설치
 
 ```bash
-npm install cheonjiin-keyboard
+npm install react-cji-keyboard
 # 또는
-yarn add cheonjiin-keyboard
+yarn add react-cji-keyboard
 ```
 
 ---
