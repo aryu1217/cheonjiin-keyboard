@@ -43,6 +43,7 @@
   justify-content: center;
   box-sizing: border-box;
   user-select: none;
+  color: #111;
 }
 
 .cheon-key:active {

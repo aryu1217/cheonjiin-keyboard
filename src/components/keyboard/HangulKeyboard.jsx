@@ -38,11 +38,8 @@ export default function HangulKeyboard({
         ⌫
       </button>
 
-      {/* 2행 : 기호 / ㄱㅋ / ㄴㄹ / ㄷㅌ / (빈칸) */}
-      <button
-        className="cheon-key cheon-key--func"
-        onClick={goSymbolMode} // ✅ 기호 키보드 열기
-      >
+      {/* 2행 : 기호 / ㄱㅋ / ㄴㄹ / ㄷㅌ / ?! */}
+      <button className="cheon-key cheon-key--func" onClick={goSymbolMode}>
         기호
       </button>
       <button
@@ -63,9 +60,13 @@ export default function HangulKeyboard({
       >
         ㄷㅌ
       </button>
-      <div className="cheon-key cheon-key--empty" />
+      <button
+        className="cheon-key"
+        onClick={() => onInsertCharCycle(["?", "!"])}
+      >
+        ?!
+      </button>
 
-      {/* 3행 : 영타 / ㅂㅍ / ㅅㅎ / ㅈㅊ / (빈칸) */}
       <button className="cheon-key cheon-key--func" onClick={goEnglishMode}>
         영타
       </button>
@@ -89,7 +90,7 @@ export default function HangulKeyboard({
       </button>
       <div className="cheon-key cheon-key--empty" />
 
-      {/* 4행 : 한 / . , / SPACE / ?! / ↵ */}
+      {/* 4행 : 한 / . , / ㅇㅁ / SPACE / ↵ */}
       <button className="cheon-key cheon-key--func">한</button>
       <button
         className="cheon-key"
@@ -98,16 +99,16 @@ export default function HangulKeyboard({
         . ,
       </button>
       <button
+        className="cheon-key"
+        onClick={() => onConsonantGroup(["ㅇ", "ㅁ"])}
+      >
+        ㅇㅁ
+      </button>
+      <button
         className="cheon-key cheon-key--space"
         onClick={() => onInsertChar(" ")}
       >
         SPACE
-      </button>
-      <button
-        className="cheon-key"
-        onClick={() => onInsertCharCycle(["?", "!"])}
-      >
-        ?!
       </button>
       <button
         className="cheon-key cheon-key--enter"
