@@ -1,5 +1,3 @@
-// src/components/keyboard/SymbolKeyboard.jsx
-
 export default function SymbolKeyboard({
   onInsertChar,
   onBackspace,

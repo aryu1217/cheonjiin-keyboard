@@ -1,5 +1,3 @@
-// src/components/keyboard/HangulKeyboard.jsx
-
 export default function HangulKeyboard({
   onStroke,
   onConsonantGroup,

@@ -1,13 +1,10 @@
-// src/utils/cheonjiinComposer.js
 import Hangul from "./hangul";
 import { pushStroke, vowelFromStrokes } from "./cheonjiinVowel";
 
-/**
- * state:
- * - jamo: 전체 자모/문자 배열 (['ㄷ','ㅑ','.', '1', ...])
- * - vowelStrokes: 현재 글자의 모음 조합용 stroke (['I','D','D'] 등)
- * - currentVowelIndex: jamo 배열에서 "현재 글자의 모음" 인덱스 (없으면 -1)
- */
+// state:
+// - jamo: 전체 자모/문자 배열 (['ㄷ','ㅑ','.', '1', ...])
+// - vowelStrokes: 현재 글자의 모음 조합용 stroke (['I','D','D'] 등)
+// - currentVowelIndex: jamo 배열에서 "현재 글자의 모음" 인덱스 (없으면 -1)
 
 export function createInitialState() {
   return {
@@ -17,9 +14,7 @@ export function createInitialState() {
   };
 }
 
-/**
- * 단일 자음 추가용 (원하면 안 써도 됨)
- */
+// 단일 자음 추가용
 export function pressConsonant(state, consonant) {
   const jamo = [...state.jamo, consonant];
   return {
@@ -29,12 +24,10 @@ export function pressConsonant(state, consonant) {
   };
 }
 
-/**
- * 자음 그룹 키 (예: ["ㄱ","ㅋ","ㄲ"])
- * - 같은 글자의 초성 상태(currentVowelIndex === -1)에서
- *   마지막 자모가 이 그룹 안에 있으면 순환 (ㄱ→ㅋ→ㄲ→ㄱ)
- * - 아니면 새 자음(그룹 첫 글자)을 추가
- */
+//  자음 그룹 키 (예: ["ㄱ","ㅋ","ㄲ"])
+//  - 같은 글자의 초성 상태(currentVowelIndex === -1)에서
+//    마지막 자모가 이 그룹 안에 있으면 순환 (ㄱ→ㅋ→ㄲ→ㄱ)
+//    아니면 새 자음(그룹 첫 글자)을 추가
 export function pressConsonantCycle(state, cycle) {
   const jamo = state.jamo.slice();
   const lastIndex = jamo.length - 1;
@@ -62,9 +55,7 @@ export function pressConsonantCycle(state, cycle) {
   };
 }
 
-/**
- * 천지인 모음 stroke (I=ㅣ, D=·, H=ㅡ)
- */
+// 천지인 모음 stroke (I=ㅣ, D=·, H=ㅡ)
 export function pressVowelStroke(state, stroke) {
   const { vowel, strokes } = pushStroke(state.vowelStrokes, stroke);
 
@@ -87,9 +78,7 @@ export function pressVowelStroke(state, stroke) {
   };
 }
 
-/**
- * 일반 문자(기호/숫자/스페이스/엔터 등) 추가
- */
+// 일반 문자(기호/숫자/스페이스/엔터 등) 추가
 export function insertChar(state, ch) {
   const jamo = [...state.jamo, ch];
   return {
@@ -99,11 +88,9 @@ export function insertChar(state, ch) {
   };
 }
 
-/**
- * 일반 문자 사이클 키 (예: ['.', ','], ['?', '!'])
- * - 마지막 문자가 cycle 안에 있으면 순환
- * - 아니면 cycle[0] 추가
- */
+// 일반 문자 사이클 키 (예: ['.', ','], ['?', '!'])
+// - 마지막 문자가 cycle 안에 있으면 순환
+// - 아니면 cycle[0] 추가
 export function insertCharCycle(state, cycle) {
   const jamo = state.jamo.slice();
   const lastIndex = jamo.length - 1;
@@ -124,9 +111,7 @@ export function insertCharCycle(state, cycle) {
   };
 }
 
-/**
- * 백스페이스: 천지인 스타일 되돌리기
- */
+// 백스페이스: 천지인 스타일 되돌리기
 export function backspace(state) {
   // 1) 모음 조합 중이면 stroke 먼저 되돌리기
   if (state.vowelStrokes.length > 0) {

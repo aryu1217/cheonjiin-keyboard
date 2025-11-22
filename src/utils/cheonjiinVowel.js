@@ -1,23 +1,7 @@
-// src/utils/cheonjiinVowel.js
-
-// 천지인 stroke 정의
-// I = ㅣ, D = ·, H = ㅡ
-// src/utils/cheonjiinVowel.js
-
-// I = ㅣ, D = ·, H = ㅡ
-// src/utils/cheonjiinVowel.js
-
-// I = ㅣ, D = ·, H = ㅡ
-// src/utils/cheonjiinVowel.js
-
-// I = ㅣ, D = ·, H = ㅡ
-// src/utils/cheonjiinVowel.js
-
 const VOWEL_FROM_STROKES = {
   // 1타 모음
   I: "ㅣ",
   H: "ㅡ",
-  // D 하나는 단독 모음으로 쓰지 않고 조합용으로만 사용
 
   // 2타 모음
   "I,D": "ㅏ", // ㅣ ·
@@ -47,14 +31,13 @@ const VOWEL_FROM_STROKES = {
   "H,D,D,I,I": "ㅞ", // ㅝ + ㅣ
 };
 
-/**
- * prevStrokes: 지금까지 누른 stroke 배열 (예: ['I'])
- * stroke: 새로 누른 stroke ("I" | "D" | "H")
- *
- * return: { vowel, strokes }
- *  - vowel: 이번까지 조합으로 만들어지는 모음 (없으면 null)
- *  - strokes: 다음 입력을 위해 유지할 stroke 버퍼
- */
+// prevStrokes: 지금까지 누른 stroke 배열 (예: ['I'])
+// stroke: 새로 누른 stroke ("I" | "D" | "H")
+//
+// return: { vowel, strokes }
+//  - vowel: 이번까지 조합으로 만들어지는 모음 (없으면 null)
+//  - strokes: 다음 입력을 위해 유지할 stroke 버퍼
+//
 export function pushStroke(prevStrokes, stroke) {
   const strokes = [...prevStrokes, stroke];
   const key = strokes.join(",");
@@ -85,10 +68,8 @@ export function pushStroke(prevStrokes, stroke) {
   return { vowel: null, strokes: [] };
 }
 
-/**
- * 현재 stroke 버퍼(strokes)로부터 모음을 다시 계산.
- * 백스페이스에서 사용.
- */
+// 현재 stroke 버퍼로부터 모음을 다시 계산.
+// 백스페이스에서 사용.
 export function vowelFromStrokes(strokes) {
   const key = strokes.join(",");
   return VOWEL_FROM_STROKES[key] || null;

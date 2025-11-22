@@ -1,4 +1,3 @@
-// src/components/keyboard/CheonjiinKeyboard.jsx
 import { useEffect, useState } from "react";
 import "./CheonjiinKeyboard.css";
 import {

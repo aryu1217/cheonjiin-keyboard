@@ -1,5 +1,3 @@
-// src/components/keyboard/EnglishKeyboard.jsx
-
 export default function EnglishKeyboard({
   isUpper,
   toggleShift,

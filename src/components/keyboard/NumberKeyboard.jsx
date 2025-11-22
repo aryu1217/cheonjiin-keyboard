@@ -1,5 +1,3 @@
-// src/components/keyboard/NumberKeyboard.jsx
-
 export default function NumberKeyboard({
   onInsertChar,
   onBackspace,
