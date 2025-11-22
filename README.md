@@ -1,22 +1,50 @@
+
 # react-cji-keyboard
 
 > **React용 천지인 + 영문 + 숫자 + 기호 커스텀 키보드 컴포넌트**
 
-스마트폰 천지인 키보드를 웹에서도 사용할 수 있는 커스텀 키보드입니다.
-<p>
-  <img width="413" height="219" alt="스크린샷 1"
-    src="https://github.com/user-attachments/assets/0231541c-2411-4300-b808-7713dbdd089c" />
-</p>
+스마트폰 천지인 키보드를 **웹앱, PWA** 같은 환경에서도 쓸 수 있도록 만든 가상 키보드입니다.  
+- 장갑을 끼거나, 물속/현장 환경처럼 **작은 쿼티 키보드를 누르기 어려운 상황**,  
+- 모바일 브라우저에서 **기본 키보드를 숨기고 화면 안에 큰 키보드를 띄우고 싶은 경우**,  
+- 특정 입력 칸에서만 **천지인 전용 입력 UX**를 제공하고 싶은 경우
 
-<p>
-  <img width="402" height="207" alt="스크린샷 2"
-    src="https://github.com/user-attachments/assets/42c1af70-4277-4243-ae80-aee095e590ee" />
-</p>
+에 기본 키패드 대신 사용할 수 있도록 설계되었습니다.
 
-<p>
-  <img width="407" height="207" alt="스크린샷 3"
-    src="https://github.com/user-attachments/assets/403f90e3-4f7d-47c5-adf4-8b7bc227d64a" />
-</p>
+
+<table>
+  <tr>
+    <td>
+      <img
+        width="260"
+        alt="천지인 키보드 - 한글 모드"
+        src="https://github.com/user-attachments/assets/b5176711-f6b6-4ef3-9a2b-093e0c27ec08"
+      />
+    </td>
+    <td>
+      <img
+        width="260"
+        alt="천지인 키보드 - 영문 모드"
+        src="https://github.com/user-attachments/assets/e74dd263-632a-4515-93d5-3dfa4b10a0e3"
+      />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img
+        width="260"
+        alt="천지인 키보드 - 숫자/기호 모드1"
+        src="https://github.com/user-attachments/assets/acfb0633-b05e-4c90-9b7a-f14b41034d94"
+      />
+    </td>
+    <td>
+      <img
+        width="260"
+        alt="천지인 키보드 - 숫자/기호 모드2"
+        src="https://github.com/user-attachments/assets/8564312b-f880-486f-9dc7-15390e78f7b2"
+      />
+    </td>
+  </tr>
+</table>
 
 
 ---
@@ -33,12 +61,13 @@ yarn add react-cji-keyboard
 
 ## 기본 사용법
 
-### 1. 컴포넌트 & 기본 스타일 불러오기
+이 라이브러리는 **입력 상태를 내부에서 관리하면서** `onChange(text: string)` 콜백으로 완성된 문자열을 돌려줍니다.  
+TypeScript 프로젝트에서는 `index.d.ts`를 통해 자동으로 타입이 인식되고, JS/JSX 환경에서도 동일한 코드로 사용할 수 있습니다.
 
 ```tsx
 import { useState } from "react";
-import CheonjiinKeyboard from "cheonjiin-keyboard";
-import "cheonjiin-keyboard/style.css"; // ★ 기본 CSS
+import CheonjiinKeyboard from "react-cji-keyboard";
+import "react-cji-keyboard/style.css"; // ★ 기본 CSS
 
 function App() {
   const [value, setValue] = useState("");
@@ -72,8 +101,8 @@ function App() {
 export default App;
 ```
 
-> `CheonjiinKeyboard` 내부에서 입력 상태를 관리하고,  
-> **`onChange(text: string)`** 로 최종 문자열을 계속 전달합니다.
+> JS/JSX 프로젝트에서도 **동일한 코드**를 사용할 수 있고,  
+> TypeScript에서는 `onChange` 인자와 `value`가 자동으로 `string` 타입으로 추론됩니다.
 
 ---
 
@@ -82,22 +111,66 @@ export default App;
 ### `<CheonjiinKeyboard />`
 
 ```ts
-type CheonjiinKeyboardProps = {
+export interface CheonjiinKeyboardProps {
+  /**
+   * (선택) 외부에서 현재 값을 제어하고 싶을 때 사용합니다.
+   * 지정하지 않으면 내부 상태로만 관리됩니다.
+   */
+  value?: string;
+
   /**
    * 키보드 입력이 변경될 때마다 호출됩니다.
    * 한글/영문/숫자/기호를 모두 포함한 전체 문자열이 넘어옵니다.
    */
   onChange?: (text: string) => void;
-};
+
+  /**
+   * (선택) 최상위 래퍼에 추가할 className
+   */
+  className?: string;
+}
+
+declare const CheonjiinKeyboard: React.FC<CheonjiinKeyboardProps>;
+
+export default CheonjiinKeyboard;
 ```
 
-#### `onChange`
+### `onChange`
 
 - 키 하나 입력할 때마다 호출됩니다.
-- 천지인 조합(예: ㄷ + ㅣ + · + · → "댜") 이 완료되면  
+- 천지인 조합(예: ㄷ + ㅣ + · + · → "댜")이 완료되면  
   조합된 문자열 전체(`"댜"`)가 포함된 텍스트가 인자로 넘어옵니다.
-- 일반적으로 상위 컴포넌트에서 `useState`로 관리하면서 textarea, input 등에 바인딩해서 사용합니다.
+- 상위 컴포넌트에서는 보통 `useState`와 함께 textarea, input 등에 바인딩해서 사용합니다.
 
+### `value` (선택)
+
+- **완전 제어 컴포넌트**로 사용하고 싶을 때 지정합니다.
+- 예를 들어, 상위에서 `value`를 관리하면서 `onChange`에서 다시 세팅하는 패턴:
+
+```tsx
+const [text, setText] = useState("");
+
+return (
+  <CheonjiinKeyboard
+    value={text}
+    onChange={setText}
+  />
+);
+```
+
+- `value`를 지정하지 않으면 내부에서만 상태를 관리하는 **반제어(uncontrolled) 모드**로 동작합니다.
+
+### `className` (선택)
+
+- 키보드 최상위 래퍼 요소에 추가 className을 부여할 때 사용합니다.
+- 예: 바텀시트 안에서 margin/padding을 제어하거나, 반응형 레이아웃에서 위치를 조정할 때.
+
+```tsx
+<CheonjiinKeyboard
+  onChange={setText}
+  className="mt-4 border-t border-gray-200"
+/>
+```
 
 ---
 
@@ -158,8 +231,8 @@ type CheonjiinKeyboardProps = {
 Tailwind 같은 걸 쓴다고 가정했을 때:
 
 ```tsx
-import CheonjiinKeyboard from "cheonjiin-keyboard";
-import "cheonjiin-keyboard/style.css";
+import CheonjiinKeyboard from "react-cji-keyboard";
+import "react-cji-keyboard/style.css";
 
 function BottomSheetKeyboard({ open, value, onChange }) {
   return (
