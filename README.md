@@ -226,10 +226,7 @@ return (
 이렇게 하면 라이브러리 기본 스타일 위에 덮어씌워져,  
 레이아웃 구조는 그대로 유지하면서 색감/테마만 바꿀 수 있습니다.
 
-### 예시 2) 입력창 + 바텀시트 형태로 사용하기
-
-Tailwind 같은 걸 쓴다고 가정했을 때:
-
+### 예시 2) 입력창 + 바텀시트 형태로 사용하기 (Tailwind)
 ```tsx
 import CheonjiinKeyboard from "react-cji-keyboard";
 import "react-cji-keyboard/style.css";
@@ -252,6 +249,3 @@ function BottomSheetKeyboard({ open, value, onChange }) {
   );
 }
 ```
-
-- 키보드는 **“입력 로직 + 레이아웃”**만 제공하고,
-- 실제로 언제/어떻게 등장할지는 위처럼 프로젝트에서 바텀시트/모달로 감싸서 제어하는 패턴이 일반적입니다.
