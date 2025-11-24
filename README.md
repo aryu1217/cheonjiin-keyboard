@@ -123,8 +123,6 @@ declare const CheonjiinKeyboard: React.FC<CheonjiinKeyboardProps>;
 export default CheonjiinKeyboard;
 ```
 
-### props 설명
-
 #### `onChange`
 - 키보드에서 글자가 바뀔 때마다 호출됩니다.
 - 한글/영문/숫자/기호를 모두 포함한 **현재 전체 문자열**이 인자로 넘어옵니다.
@@ -142,7 +140,6 @@ return (
 );
 ```
 
----
 
 #### `value` (선택)
 
@@ -164,7 +161,6 @@ return (
 - 리셋 버튼으로 값 지우기, 다른 입력 컴포넌트와 값 공유하기 등
   **외부에서 값에 간섭해야 할 때** `value`를 함께 사용하는 패턴이 편합니다.
 
----
 
 #### `className` (선택)
 
