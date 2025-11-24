@@ -113,21 +113,8 @@ export default App;
 
 ```ts
 export interface CheonjiinKeyboardProps {
-  /**
-   * (선택) 외부에서 현재 값을 제어하고 싶을 때 사용합니다.
-   * 지정하지 않으면 내부 상태로만 관리됩니다.
-   */
   value?: string;
-
-  /**
-   * 키보드 입력이 변경될 때마다 호출됩니다.
-   * 한글/영문/숫자/기호를 모두 포함한 전체 문자열이 넘어옵니다.
-   */
   onChange?: (text: string) => void;
-
-  /**
-   * (선택) 최상위 래퍼에 추가할 className
-   */
   className?: string;
 }
 
@@ -136,17 +123,31 @@ declare const CheonjiinKeyboard: React.FC<CheonjiinKeyboardProps>;
 export default CheonjiinKeyboard;
 ```
 
-### `onChange`
+### props 설명
 
-- 키 하나 입력할 때마다 호출됩니다.
-- 천지인 조합(예: ㄷ + ㅣ + · + · → "댜")이 완료되면  
-  조합된 문자열 전체(`"댜"`)가 포함된 텍스트가 인자로 넘어옵니다.
-- 상위 컴포넌트에서는 보통 `useState`와 함께 textarea, input 등에 바인딩해서 사용합니다.
+#### `onChange`
+- 키보드에서 글자가 바뀔 때마다 호출됩니다.
+- 한글/영문/숫자/기호를 모두 포함한 **현재 전체 문자열**이 인자로 넘어옵니다.
 
-### `value` (선택)
+보통 이렇게 사용합니다:
 
-- **완전 제어 컴포넌트**로 사용하고 싶을 때 지정합니다.
-- 예를 들어, 상위에서 `value`를 관리하면서 `onChange`에서 다시 세팅하는 패턴:
+```tsx
+const [text, setText] = useState("");
+
+return (
+  <>
+    <textarea value={text} readOnly />
+    <CheonjiinKeyboard onChange={setText} />
+  </>
+);
+```
+
+---
+
+#### `value` (선택)
+
+- 키보드의 값을 **바깥에서 직접 관리하고 싶을 때** 사용합니다.
+- 예를 들어, 상위 컴포넌트에서 상태를 들고 있다가 `onChange`로 받은 값을 다시 넣어주는 식으로 씁니다:
 
 ```tsx
 const [text, setText] = useState("");
@@ -159,19 +160,26 @@ return (
 );
 ```
 
-- `value`를 지정하지 않으면 내부에서만 상태를 관리하는 **반제어(uncontrolled) 모드**로 동작합니다.
+- `value`를 지정하지 않으면, 키보드가 **자기 내부에서 값 상태를 관리**하면서 `onChange`로 결과만 알려줍니다.
+- 리셋 버튼으로 값 지우기, 다른 입력 컴포넌트와 값 공유하기 등
+  **외부에서 값에 간섭해야 할 때** `value`를 함께 사용하는 패턴이 편합니다.
 
-### `className` (선택)
+---
 
-- 키보드 최상위 래퍼 요소에 추가 className을 부여할 때 사용합니다.
-- 예: 바텀시트 안에서 margin/padding을 제어하거나, 반응형 레이아웃에서 위치를 조정할 때.
+#### `className` (선택)
+
+- 키보드 최상위 래퍼에 **추가로 클래스명을 붙이고 싶을 때** 사용합니다.
+- 예를 들어, 화면 하단에 붙는 바텀시트 스타일로 쓰고 싶다면:
 
 ```tsx
 <CheonjiinKeyboard
   onChange={setText}
-  className="mt-4 border-t border-gray-200"
+  className="fixed inset-x-0 bottom-0 border-t bg-white"
 />
 ```
+
+처럼 프로젝트에서 사용하는 CSS / Tailwind 클래스와 함께 조합해서 쓸 수 있습니다.
+
 
 ---
 
