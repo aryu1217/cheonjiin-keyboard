@@ -1,3 +1,5 @@
+import KeyboardControlKey from "./KeyboardControlKey";
+
 export default function EnglishKeyboard({
   isUpper,
   toggleShift,
@@ -6,6 +8,8 @@ export default function EnglishKeyboard({
   onInsertCharCycle, // 구두점용
   onBackspace,
   goHangulMode,
+  goNumberMode,
+  goSymbolMode,
 }) {
   const labelABC = isUpper ? "ABC" : "abc";
   const labelDEF = isUpper ? "DEF" : "def";
@@ -17,8 +21,9 @@ export default function EnglishKeyboard({
   const labelWXYZ = isUpper ? "WXYZ" : "wxyz";
 
   return (
-    <div className="cheon-grid cheon-grid--english">
-      {/* 1행: ,?! | ABC | DEF | ⌫ */}
+    <div className="cheon-grid">
+      {/* 1행: (빈칸) | ,?! | ABC | DEF | ⌫ */}
+      <KeyboardControlKey type="empty" />
       <button
         className="cheon-key"
         onClick={() => onInsertCharCycle([",", "?", "!"])}
@@ -41,7 +46,8 @@ export default function EnglishKeyboard({
         ⌫
       </button>
 
-      {/* 2행: GHI | JKL | MNO | ↵ */}
+      {/* 2행: 123 | GHI | JKL | MNO | (빈칸) */}
+      <KeyboardControlKey type="number" onClick={goNumberMode} />
       <button
         className="cheon-key"
         onClick={() => onAlphaCycle(["g", "h", "i"])}
@@ -60,14 +66,10 @@ export default function EnglishKeyboard({
       >
         {labelMNO}
       </button>
-      <button
-        className="cheon-key cheon-key--enter"
-        onClick={() => onInsertChar("\n")}
-      >
-        ↵
-      </button>
+      <div className="cheon-key cheon-key--empty" />
 
-      {/* 3행: PQRS | TUV | WXYZ | Shift */}
+      {/* 3행: 기호 | PQRS | TUV | WXYZ | Shift */}
+      <KeyboardControlKey type="symbol" onClick={goSymbolMode} />
       <button
         className="cheon-key"
         onClick={() => onAlphaCycle(["p", "q", "r", "s"])}
@@ -95,18 +97,22 @@ export default function EnglishKeyboard({
         ↑
       </button>
 
-      {/* 4행: 한/영 | SPACE | (빈) | (빈) */}
-      <button className="cheon-key cheon-key--func" onClick={goHangulMode}>
-        한/영
-      </button>
+      {/* 4행: 영타/한 | (빈칸) | (빈칸) | SPACE | ↵ */}
+      <KeyboardControlKey type="language" onClick={goHangulMode} />
+      <div className="cheon-key cheon-key--empty" />
+      <div className="cheon-key cheon-key--empty" />
       <button
         className="cheon-key cheon-key--space"
         onClick={() => onInsertChar(" ")}
       >
         SPACE
       </button>
-      <div className="cheon-key cheon-key--empty" />
-      <div className="cheon-key cheon-key--empty" />
+      <button
+        className="cheon-key cheon-key--enter"
+        onClick={() => onInsertChar("\n")}
+      >
+        ↵
+      </button>
     </div>
   );
 }

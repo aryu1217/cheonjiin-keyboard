@@ -1,3 +1,5 @@
+import KeyboardControlKey from "./KeyboardControlKey";
+
 export default function HangulKeyboard({
   onStroke,
   onConsonantGroup,
@@ -10,10 +12,8 @@ export default function HangulKeyboard({
 }) {
   return (
     <div className="cheon-grid">
-      {/* 1행 : 123 / ㅣ / · / ㅡ / ⌫ */}
-      <button className="cheon-key cheon-key--func" onClick={goNumberMode}>
-        123
-      </button>
+      {/* 1행 : (빈칸) / ㅣ / · / ㅡ / ⌫ */}
+      <KeyboardControlKey type="empty" />
       <button
         className="cheon-key cheon-key--stroke"
         onClick={() => onStroke("I")}
@@ -36,10 +36,8 @@ export default function HangulKeyboard({
         ⌫
       </button>
 
-      {/* 2행 : 기호 / ㄱㅋ / ㄴㄹ / ㄷㅌ / ?! */}
-      <button className="cheon-key cheon-key--func" onClick={goSymbolMode}>
-        기호
-      </button>
+      {/* 2행 : 123 / ㄱㅋ / ㄴㄹ / ㄷㅌ / ?! */}
+      <KeyboardControlKey type="number" onClick={goNumberMode} />
       <button
         className="cheon-key"
         onClick={() => onConsonantGroup(["ㄱ", "ㅋ", "ㄲ"])}
@@ -65,9 +63,8 @@ export default function HangulKeyboard({
         ?!
       </button>
 
-      <button className="cheon-key cheon-key--func" onClick={goEnglishMode}>
-        영타
-      </button>
+      {/* 3행 : 기호 / ㅂㅍ / ㅅㅎ / ㅈㅊ / (빈칸) */}
+      <KeyboardControlKey type="symbol" onClick={goSymbolMode} />
       <button
         className="cheon-key"
         onClick={() => onConsonantGroup(["ㅂ", "ㅍ", "ㅃ"])}
@@ -88,8 +85,8 @@ export default function HangulKeyboard({
       </button>
       <div className="cheon-key cheon-key--empty" />
 
-      {/* 4행 : 한 / . , / ㅇㅁ / SPACE / ↵ */}
-      <button className="cheon-key cheon-key--func">한</button>
+      {/* 4행 : 영타/한 / . , / ㅇㅁ / SPACE / ↵ */}
+      <KeyboardControlKey type="language" onClick={goEnglishMode} />
       <button
         className="cheon-key"
         onClick={() => onInsertCharCycle([".", ","])}
