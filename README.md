@@ -37,8 +37,8 @@ yarn add react-cji-keyboard
 
 ```tsx
 import { useState } from "react";
-import CheonjiinKeyboard from "cheonjiin-keyboard";
-import "cheonjiin-keyboard/style.css"; // ★ 기본 CSS
+import CheonjiinKeyboard from "react-cji-keyboard";
+import "react-cji-keyboard/style.css"; // ★ 기본 CSS
 
 function App() {
   const [value, setValue] = useState("");
@@ -158,8 +158,8 @@ type CheonjiinKeyboardProps = {
 Tailwind 같은 걸 쓴다고 가정했을 때:
 
 ```tsx
-import CheonjiinKeyboard from "cheonjiin-keyboard";
-import "cheonjiin-keyboard/style.css";
+import CheonjiinKeyboard from "react-cji-keyboard";
+import "react-cji-keyboard/style.css";
 
 function BottomSheetKeyboard({ open, value, onChange }) {
   return (
