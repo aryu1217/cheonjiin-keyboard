@@ -88,6 +88,9 @@ type CheonjiinKeyboardProps = {
    * 한글/영문/숫자/기호를 모두 포함한 전체 문자열이 넘어옵니다.
    */
   onChange?: (text: string) => void;
+  className?: string;
+  style?: React.CSSProperties;
+  children?: React.ReactNode;
 };
 ```
 
@@ -101,6 +104,47 @@ type CheonjiinKeyboardProps = {
 
 ---
 
+## 빈 슬롯 커스터마이징
+
+기본 키보드 배치는 유지하면서, 비어 있는 칸에 자주 쓰는 키를 추가할 수 있습니다.
+
+```tsx
+<CheonjiinKeyboard onChange={setValue}>
+  <CheonjiinKeyboard.Slot name="controlTop">
+    <CheonjiinKeyboard.Key value="@">@</CheonjiinKeyboard.Key>
+  </CheonjiinKeyboard.Slot>
+
+  <CheonjiinKeyboard.Slot mode="hangul" name="mainExtra">
+    <CheonjiinKeyboard.Key value="ㅋ">ㅋ</CheonjiinKeyboard.Key>
+  </CheonjiinKeyboard.Slot>
+
+  <CheonjiinKeyboard.Slot mode="english" name="topRight">
+    <CheonjiinKeyboard.Key value=".com">.com</CheonjiinKeyboard.Key>
+  </CheonjiinKeyboard.Slot>
+
+  <CheonjiinKeyboard.Slot mode="number" name="rightTop">
+    <CheonjiinKeyboard.Key value="-">-</CheonjiinKeyboard.Key>
+  </CheonjiinKeyboard.Slot>
+</CheonjiinKeyboard>
+```
+
+`mode`를 생략한 `controlTop` 슬롯은 모든 키보드 모드의 왼쪽 위 빈칸에 적용됩니다. 특정 모드에 같은 슬롯을 다시 선언하면 모드별 선언이 우선합니다.
+
+| mode | slot name | 위치 |
+| --- | --- | --- |
+| 공통 | `controlTop` | 왼쪽 제어열 맨 위 |
+| `hangul` | `mainExtra` | `?!` 아래, `↵` 위 |
+| `english` | `topRight` | 2행 오른쪽 빈칸 |
+| `english` | `bottomLeft` | 4행 2열 |
+| `english` | `bottomMiddle` | 4행 3열 |
+| `number` | `rightTop` | 2행 오른쪽 빈칸 |
+| `number` | `rightMiddle` | 3행 오른쪽 빈칸 |
+| `symbol` | `controlTop` | 왼쪽 제어열 맨 위 |
+
+지원하지 않는 슬롯 이름을 사용하면 개발 환경에서 경고가 출력되고, 해당 슬롯은 무시됩니다.
+
+---
+
 ## 스타일 커스터마이징
 
 기본 스타일은 `style.css` 에 정의된 **CSS 클래스 기반**입니다.  
@@ -109,8 +153,7 @@ type CheonjiinKeyboardProps = {
 ### 기본 클래스 목록 (일부)
 
 - `.cheon-keyboard` – 키보드 전체 래퍼
-- `.cheon-grid` – 5열(또는 4열) 그리드 레이아웃
-- `.cheon-grid--english` – 영문 모드에서 4열 그리드
+- `.cheon-grid` – 5열 그리드 레이아웃
 - `.cheon-key` – 기본 키 스타일
 - `.cheon-key--func` – 기능 키 (한/영, 123, 기호, 백스페이스 등)
 - `.cheon-key--space` – 스페이스 키

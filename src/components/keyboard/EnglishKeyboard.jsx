@@ -1,4 +1,5 @@
 import KeyboardControlKey from "./KeyboardControlKey";
+import KeyboardSlotCell from "./KeyboardSlotCell";
 
 export default function EnglishKeyboard({
   isUpper,
@@ -10,6 +11,7 @@ export default function EnglishKeyboard({
   goHangulMode,
   goNumberMode,
   goSymbolMode,
+  slots = {},
 }) {
   const labelABC = isUpper ? "ABC" : "abc";
   const labelDEF = isUpper ? "DEF" : "def";
@@ -23,7 +25,13 @@ export default function EnglishKeyboard({
   return (
     <div className="cheon-grid">
       {/* 1행: (빈칸) | ,?! | ABC | DEF | ⌫ */}
-      <KeyboardControlKey type="empty" />
+      <KeyboardControlKey
+        type="empty"
+        mode="english"
+        slotName="controlTop"
+        slot={slots.controlTop}
+        onInsertChar={onInsertChar}
+      />
       <button
         className="cheon-key"
         onClick={() => onInsertCharCycle([",", "?", "!"])}
@@ -47,7 +55,11 @@ export default function EnglishKeyboard({
       </button>
 
       {/* 2행: 123 | GHI | JKL | MNO | (빈칸) */}
-      <KeyboardControlKey type="number" onClick={goNumberMode} />
+      <KeyboardControlKey
+        type="number"
+        mode="english"
+        onClick={goNumberMode}
+      />
       <button
         className="cheon-key"
         onClick={() => onAlphaCycle(["g", "h", "i"])}
@@ -66,10 +78,19 @@ export default function EnglishKeyboard({
       >
         {labelMNO}
       </button>
-      <div className="cheon-key cheon-key--empty" />
+      <KeyboardSlotCell
+        mode="english"
+        name="topRight"
+        slot={slots.topRight}
+        onInsertChar={onInsertChar}
+      />
 
       {/* 3행: 기호 | PQRS | TUV | WXYZ | Shift */}
-      <KeyboardControlKey type="symbol" onClick={goSymbolMode} />
+      <KeyboardControlKey
+        type="symbol"
+        mode="english"
+        onClick={goSymbolMode}
+      />
       <button
         className="cheon-key"
         onClick={() => onAlphaCycle(["p", "q", "r", "s"])}
@@ -98,9 +119,23 @@ export default function EnglishKeyboard({
       </button>
 
       {/* 4행: 영타/한 | (빈칸) | (빈칸) | SPACE | ↵ */}
-      <KeyboardControlKey type="language" onClick={goHangulMode} />
-      <div className="cheon-key cheon-key--empty" />
-      <div className="cheon-key cheon-key--empty" />
+      <KeyboardControlKey
+        type="language"
+        mode="english"
+        onClick={goHangulMode}
+      />
+      <KeyboardSlotCell
+        mode="english"
+        name="bottomLeft"
+        slot={slots.bottomLeft}
+        onInsertChar={onInsertChar}
+      />
+      <KeyboardSlotCell
+        mode="english"
+        name="bottomMiddle"
+        slot={slots.bottomMiddle}
+        onInsertChar={onInsertChar}
+      />
       <button
         className="cheon-key cheon-key--space"
         onClick={() => onInsertChar(" ")}

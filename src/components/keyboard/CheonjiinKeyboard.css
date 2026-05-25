@@ -75,7 +75,3 @@
 .cheon-key--shift-on {
   background: #dbeafe;
 }
-
-.cheon-grid--english {
-  grid-template-columns: repeat(4, 1fr);
-}

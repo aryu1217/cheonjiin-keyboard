@@ -1,4 +1,5 @@
 import KeyboardControlKey from "./KeyboardControlKey";
+import KeyboardSlotCell from "./KeyboardSlotCell";
 
 export default function HangulKeyboard({
   onStroke,
@@ -9,11 +10,18 @@ export default function HangulKeyboard({
   goEnglishMode,
   goNumberMode,
   goSymbolMode,
+  slots = {},
 }) {
   return (
     <div className="cheon-grid">
       {/* 1행 : (빈칸) / ㅣ / · / ㅡ / ⌫ */}
-      <KeyboardControlKey type="empty" />
+      <KeyboardControlKey
+        type="empty"
+        mode="hangul"
+        slotName="controlTop"
+        slot={slots.controlTop}
+        onInsertChar={onInsertChar}
+      />
       <button
         className="cheon-key cheon-key--stroke"
         onClick={() => onStroke("I")}
@@ -37,7 +45,11 @@ export default function HangulKeyboard({
       </button>
 
       {/* 2행 : 123 / ㄱㅋ / ㄴㄹ / ㄷㅌ / ?! */}
-      <KeyboardControlKey type="number" onClick={goNumberMode} />
+      <KeyboardControlKey
+        type="number"
+        mode="hangul"
+        onClick={goNumberMode}
+      />
       <button
         className="cheon-key"
         onClick={() => onConsonantGroup(["ㄱ", "ㅋ", "ㄲ"])}
@@ -64,7 +76,11 @@ export default function HangulKeyboard({
       </button>
 
       {/* 3행 : 기호 / ㅂㅍ / ㅅㅎ / ㅈㅊ / (빈칸) */}
-      <KeyboardControlKey type="symbol" onClick={goSymbolMode} />
+      <KeyboardControlKey
+        type="symbol"
+        mode="hangul"
+        onClick={goSymbolMode}
+      />
       <button
         className="cheon-key"
         onClick={() => onConsonantGroup(["ㅂ", "ㅍ", "ㅃ"])}
@@ -83,10 +99,19 @@ export default function HangulKeyboard({
       >
         ㅈㅊ
       </button>
-      <div className="cheon-key cheon-key--empty" />
+      <KeyboardSlotCell
+        mode="hangul"
+        name="mainExtra"
+        slot={slots.mainExtra}
+        onInsertChar={onInsertChar}
+      />
 
       {/* 4행 : 영타/한 / . , / ㅇㅁ / SPACE / ↵ */}
-      <KeyboardControlKey type="language" onClick={goEnglishMode} />
+      <KeyboardControlKey
+        type="language"
+        mode="hangul"
+        onClick={goEnglishMode}
+      />
       <button
         className="cheon-key"
         onClick={() => onInsertCharCycle([".", ","])}

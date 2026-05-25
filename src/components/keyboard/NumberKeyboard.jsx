@@ -1,4 +1,5 @@
 import KeyboardControlKey from "./KeyboardControlKey";
+import KeyboardSlotCell from "./KeyboardSlotCell";
 
 export default function NumberKeyboard({
   onInsertChar,
@@ -6,11 +7,18 @@ export default function NumberKeyboard({
   goHangulMode,
   goNumberMode,
   goSymbolMode,
+  slots = {},
 }) {
   return (
     <div className="cheon-grid">
       {/* 1행: (빈칸) | 1 | 2 | 3 | ⌫ */}
-      <KeyboardControlKey type="empty" />
+      <KeyboardControlKey
+        type="empty"
+        mode="number"
+        slotName="controlTop"
+        slot={slots.controlTop}
+        onInsertChar={onInsertChar}
+      />
       <button className="cheon-key" onClick={() => onInsertChar("1")}>
         1
       </button>
@@ -25,7 +33,11 @@ export default function NumberKeyboard({
       </button>
 
       {/* 2행: 123 | 4 | 5 | 6 | (빈칸) */}
-      <KeyboardControlKey type="number" onClick={goNumberMode} />
+      <KeyboardControlKey
+        type="number"
+        mode="number"
+        onClick={goNumberMode}
+      />
       <button className="cheon-key" onClick={() => onInsertChar("4")}>
         4
       </button>
@@ -35,10 +47,19 @@ export default function NumberKeyboard({
       <button className="cheon-key" onClick={() => onInsertChar("6")}>
         6
       </button>
-      <div className="cheon-key cheon-key--empty" />
+      <KeyboardSlotCell
+        mode="number"
+        name="rightTop"
+        slot={slots.rightTop}
+        onInsertChar={onInsertChar}
+      />
 
       {/* 3행: 기호 | 7 | 8 | 9 | (빈칸) */}
-      <KeyboardControlKey type="symbol" onClick={goSymbolMode} />
+      <KeyboardControlKey
+        type="symbol"
+        mode="number"
+        onClick={goSymbolMode}
+      />
       <button className="cheon-key" onClick={() => onInsertChar("7")}>
         7
       </button>
@@ -48,10 +69,19 @@ export default function NumberKeyboard({
       <button className="cheon-key" onClick={() => onInsertChar("9")}>
         9
       </button>
-      <div className="cheon-key cheon-key--empty" />
+      <KeyboardSlotCell
+        mode="number"
+        name="rightMiddle"
+        slot={slots.rightMiddle}
+        onInsertChar={onInsertChar}
+      />
 
       {/* 4행: 영타/한 | . | 0 | SPACE | ↵ */}
-      <KeyboardControlKey type="language" onClick={goHangulMode} />
+      <KeyboardControlKey
+        type="language"
+        mode="number"
+        onClick={goHangulMode}
+      />
       <button className="cheon-key" onClick={() => onInsertChar(".")}>
         .
       </button>

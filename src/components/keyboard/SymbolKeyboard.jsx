@@ -7,11 +7,18 @@ export default function SymbolKeyboard({
   goHangulMode,
   goNumberMode,
   goSymbolMode,
+  slots = {},
 }) {
   return (
     <div className="cheon-grid">
       {/* 1행: (빈칸) | @ | # | & | ⌫ */}
-      <KeyboardControlKey type="empty" />
+      <KeyboardControlKey
+        type="empty"
+        mode="symbol"
+        slotName="controlTop"
+        slot={slots.controlTop}
+        onInsertChar={onInsertChar}
+      />
       <button className="cheon-key" onClick={() => onInsertChar("@")}>
         @
       </button>
@@ -26,7 +33,11 @@ export default function SymbolKeyboard({
       </button>
 
       {/* 2행: 123 | ( | ) | [ | ] */}
-      <KeyboardControlKey type="number" onClick={goNumberMode} />
+      <KeyboardControlKey
+        type="number"
+        mode="symbol"
+        onClick={goNumberMode}
+      />
       <button className="cheon-key" onClick={() => onInsertChar("(")}>
         (
       </button>
@@ -41,7 +52,11 @@ export default function SymbolKeyboard({
       </button>
 
       {/* 3행: 기호 | { | } | "' | / */}
-      <KeyboardControlKey type="symbol" onClick={goSymbolMode} />
+      <KeyboardControlKey
+        type="symbol"
+        mode="symbol"
+        onClick={goSymbolMode}
+      />
       <button className="cheon-key" onClick={() => onInsertChar("{")}>
         {"{"}
       </button>
@@ -59,7 +74,11 @@ export default function SymbolKeyboard({
       </button>
 
       {/* 4행: 영타/한 | , | . | ?! | ↵ */}
-      <KeyboardControlKey type="language" onClick={goHangulMode} />
+      <KeyboardControlKey
+        type="language"
+        mode="symbol"
+        onClick={goHangulMode}
+      />
       <button className="cheon-key" onClick={() => onInsertChar(",")}>
         ,
       </button>
