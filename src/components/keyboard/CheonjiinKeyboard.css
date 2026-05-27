@@ -1,8 +1,9 @@
 .cheon-keyboard {
-  /* border-top: 1px solid #ddd; */
   background: var(--cheon-keyboard-bg, #f5f6f8);
   padding: var(--cheon-keyboard-padding, 8px);
-  margin-top: var(--cheon-keyboard-margin-top, 16px);
+  margin: var(--cheon-keyboard-margin, 16px 0 0);
+  border: var(--cheon-keyboard-border, 0 solid transparent);
+  border-radius: var(--cheon-keyboard-radius, 0);
   box-sizing: border-box;
 }
 
@@ -33,7 +34,7 @@
 
 .cheon-key {
   border-radius: var(--cheon-key-radius, 6px);
-  border: 1px solid var(--cheon-key-border-color, #d8d8de);
+  border: var(--cheon-key-border, 1px solid #d8d8de);
   background: var(--cheon-key-bg, #ffffff);
   font-size: var(--cheon-key-font-size, 16px);
   display: flex;
@@ -44,73 +45,33 @@
   color: var(--cheon-key-color, #111);
 }
 
-.cheon-grid[data-cji-mode="hangul"] .cheon-key {
-  background: var(--cheon-hangul-bg, var(--cheon-key-bg, #ffffff));
-  border-color: var(
-    --cheon-hangul-border-color,
-    var(--cheon-key-border-color, #d8d8de)
-  );
-  color: var(--cheon-hangul-color, var(--cheon-key-color, #111));
-}
-
-.cheon-grid[data-cji-mode="english"] .cheon-key {
-  background: var(--cheon-english-bg, var(--cheon-key-bg, #ffffff));
-  border-color: var(
-    --cheon-english-border-color,
-    var(--cheon-key-border-color, #d8d8de)
-  );
-  color: var(--cheon-english-color, var(--cheon-key-color, #111));
-}
-
-.cheon-grid[data-cji-mode="number"] .cheon-key {
-  background: var(--cheon-number-bg, var(--cheon-key-bg, #ffffff));
-  border-color: var(
-    --cheon-number-border-color,
-    var(--cheon-key-border-color, #d8d8de)
-  );
-  color: var(--cheon-number-color, var(--cheon-key-color, #111));
-}
-
-.cheon-grid[data-cji-mode="symbol"] .cheon-key {
-  background: var(--cheon-symbol-bg, var(--cheon-key-bg, #ffffff));
-  border-color: var(
-    --cheon-symbol-border-color,
-    var(--cheon-key-border-color, #d8d8de)
-  );
-  color: var(--cheon-symbol-color, var(--cheon-key-color, #111));
-}
-
 .cheon-key:active {
   background: var(--cheon-key-active-bg, #e0e7ff);
 }
-/* 
-.cheon-key--stroke {
-  background: #e9f3ff;
-} */
 
 .cheon-key--func {
-  background: var(--cheon-function-bg, #f6f6f7);
-  color: var(--cheon-function-color, var(--cheon-key-color, #111));
-  font-size: 13px;
+  background: var(--cheon-key-bg, #f6f6f7);
+  color: var(--cheon-key-color, #111);
+  font-size: var(--cheon-key-font-size, 13px);
 }
 
 .cheon-key--enter {
-  background: var(--cheon-enter-bg, #f6f6ff);
-  color: var(--cheon-enter-color, var(--cheon-key-color, #111));
+  background: var(--cheon-key-bg, #f6f6ff);
+  color: var(--cheon-key-color, #111);
   font-weight: 500;
 }
 
 .cheon-key--space {
-  background: var(--cheon-space-bg, #ffffff);
-  color: var(--cheon-space-color, var(--cheon-key-color, #111));
-  font-size: 13px;
+  background: var(--cheon-key-bg, #ffffff);
+  color: var(--cheon-key-color, #111);
+  font-size: var(--cheon-key-font-size, 13px);
 }
 
 .cheon-key--empty {
-  background: var(--cheon-empty-bg, transparent);
-  border-color: var(--cheon-empty-border-color, transparent);
+  background: transparent;
+  border-color: transparent;
 }
 
 .cheon-key--shift-on {
-  background: var(--cheon-shift-on-bg, #dbeafe);
+  background: var(--cheon-key-active-bg, #dbeafe);
 }

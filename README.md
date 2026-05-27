@@ -81,7 +81,7 @@ type CheonjiinKeyboardProps = {
 | --- | --- | --- |
 | `onChange` | `(value: string) => void` | 키보드 입력값이 바뀔 때마다 전체 문자열을 전달합니다. |
 | `customKeys` | `CheonjiinKeyboardCustomKeys` | 기본 레이아웃의 빈칸에 커스텀 키를 추가합니다. |
-| `customStyle` | `CheonjiinKeyboardCustomStyle` | 키보드 배경, 키 색상, 높이 등 주요 스타일 토큰을 변경합니다. |
+| `customStyle` | `CheonjiinKeyboardCustomStyle` | 키보드 배경/테두리, 버튼 배경/테두리, 글자색, 글자 크기, 간격 등을 변경합니다. |
 | `className` | `string` | 키보드 루트 요소에 추가할 클래스입니다. |
 | `style` | `React.CSSProperties` | 키보드 루트 요소에 직접 적용할 인라인 스타일입니다. |
 
@@ -150,21 +150,35 @@ type CheonjiinKeyboardCustomKey = {
 
 ## 스타일 커스터마이징
 
-`customStyle`로 키보드의 주요 스타일 토큰을 바꿀 수 있습니다.
+`customStyle`은 키보드 전체와 버튼 공통 스타일만 다룹니다.
+한글/영어/숫자/기호처럼 모드별로 색상을 따로 나누거나, Enter/Space 같은 특정 키만 위한 스타일 prop은 제공하지 않습니다.
+
+커스터마이징 범위는 아래 정도로 제한합니다.
+
+| 범위 | 바꿀 수 있는 것 |
+| --- | --- |
+| 키보드 레이아웃 | 배경, padding, margin, border, border-radius |
+| 키 간격 | 버튼 사이 gap |
+| 버튼 | 배경, 글자색, border, border-radius, 높이 |
+| 텍스트 | 글자 크기 |
+| 인터랙션 | 누르는 동안의 버튼 배경 |
 
 ```tsx
 <CheonjiinKeyboard
   onChange={setValue}
   customStyle={{
     "keyboard-bg": "#111827",
+    "keyboard-border": "1px solid #374151",
+    "keyboard-radius": "12px",
+    "keyboard-margin": "16px 0 0",
+    "keyboard-padding": "10px",
+    "grid-gap": "6px",
     "key-bg": "#1f2937",
     "key-color": "#f9fafb",
-    "key-radius": "10px",
+    "key-border": "1px solid #4b5563",
     "key-height": "48px",
-    "function-bg": "#374151",
-    "enter-bg": "#2563eb",
-    "hangul-bg": "#fef3c7",
-    "hangul-color": "#92400e",
+    "key-radius": "10px",
+    "key-font-size": "15px",
   }}
 />
 ```
@@ -173,45 +187,26 @@ type CheonjiinKeyboardCustomKey = {
 
 ```txt
 "keyboard-bg" -> --cheon-keyboard-bg
-"hangul-bg"   -> --cheon-hangul-bg
+"key-border"  -> --cheon-key-border
 ```
 
 ### customStyle 속성
 
-| 속성 | 설명 |
-| --- | --- |
-| `keyboard-bg` | 키보드 전체 배경 |
-| `keyboard-padding` | 키보드 내부 여백 |
-| `keyboard-margin-top` | 키보드 상단 margin |
-| `grid-gap` | 키 사이 간격 |
-| `key-bg` | 기본 키 배경 |
-| `key-color` | 기본 키 글자색 |
-| `key-border-color` | 기본 키 테두리 색 |
-| `key-radius` | 키 border-radius |
-| `key-height` | 키 높이 |
-| `key-font-size` | 키 글자 크기 |
-| `key-active-bg` | 키를 누르는 동안의 배경 |
-| `function-bg` | 기능 키 배경 |
-| `function-color` | 기능 키 글자색 |
-| `enter-bg` | Enter 키 배경 |
-| `enter-color` | Enter 키 글자색 |
-| `space-bg` | Space 키 배경 |
-| `space-color` | Space 키 글자색 |
-| `empty-bg` | 빈칸 배경 |
-| `empty-border-color` | 빈칸 테두리 색 |
-| `shift-on-bg` | Shift 활성화 배경 |
-| `hangul-bg` | 한글 모드 키 배경 |
-| `hangul-color` | 한글 모드 키 글자색 |
-| `hangul-border-color` | 한글 모드 키 테두리 색 |
-| `english-bg` | 영어 모드 키 배경 |
-| `english-color` | 영어 모드 키 글자색 |
-| `english-border-color` | 영어 모드 키 테두리 색 |
-| `number-bg` | 숫자 모드 키 배경 |
-| `number-color` | 숫자 모드 키 글자색 |
-| `number-border-color` | 숫자 모드 키 테두리 색 |
-| `symbol-bg` | 기호 모드 키 배경 |
-| `symbol-color` | 기호 모드 키 글자색 |
-| `symbol-border-color` | 기호 모드 키 테두리 색 |
+| 속성 | 대상 | 설명 |
+| --- | --- | --- |
+| `keyboard-bg` | 키보드 | 키보드 전체 배경 |
+| `keyboard-padding` | 키보드 | 키보드 내부 여백 |
+| `keyboard-margin` | 키보드 | 키보드 외부 여백 |
+| `keyboard-border` | 키보드 | 키보드 전체 테두리 |
+| `keyboard-radius` | 키보드 | 키보드 전체 모서리 둥글기 |
+| `grid-gap` | 레이아웃 | 버튼 사이 간격 |
+| `key-bg` | 버튼 | 버튼 배경 |
+| `key-color` | 버튼 | 버튼 글자색 |
+| `key-border` | 버튼 | 버튼 테두리 |
+| `key-radius` | 버튼 | 버튼 모서리 둥글기 |
+| `key-height` | 버튼 | 버튼 높이 |
+| `key-font-size` | 버튼 | 버튼 글자 크기 |
+| `key-active-bg` | 버튼 | 버튼을 누르는 동안의 배경 |
 
 더 세밀하게 제어해야 한다면 `className`을 넘겨 루트 클래스를 추가하고 CSS에서 직접 덮어쓸 수 있습니다.
 
