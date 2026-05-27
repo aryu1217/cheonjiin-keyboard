@@ -1,4 +1,4 @@
-import KeyboardSlotCell from "./KeyboardSlotCell";
+import KeyboardSlotCell from "../slots/KeyboardSlotCell";
 
 const CONTROL_KEY_LABEL = {
   number: "123",
@@ -11,7 +11,7 @@ export default function KeyboardControlKey({
   type,
   mode,
   slot,
-  slotName,
+  position,
   onClick,
   onInsertChar,
 }) {
@@ -19,7 +19,7 @@ export default function KeyboardControlKey({
     return (
       <KeyboardSlotCell
         mode={mode}
-        name={slotName}
+        position={position}
         slot={slot}
         onInsertChar={onInsertChar}
       />

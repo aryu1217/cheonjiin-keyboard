@@ -7,7 +7,7 @@ import {
   getText,
   insertChar as applyInsertChar,
   insertCharCycle as applyInsertCharCycle,
-} from "../../../utils/cheonjiinComposer";
+} from "../../../../utils/cheonjiinComposer";
 
 // 천지인 입력 조합 상태를 React state로 관리하는 hook입니다.
 // 버튼 배치나 키보드 모드는 알지 않고, 입력 액션과 최종 text 변경 알림만 책임집니다.

@@ -1,18 +1,32 @@
 import KeyboardControlKey from "./KeyboardControlKey";
-import KeyboardSlotCell from "./KeyboardSlotCell";
+import KeyboardSlotCell from "../slots/KeyboardSlotCell";
+import { useKeyboardInputContext } from "../input/KeyboardInputProvider";
+import { useKeyboardSlotContext } from "../slots/KeyboardSlotProvider";
+import { useKeyboardViewContext } from "../view/KeyboardViewContext";
 
-export default function EnglishKeyboard({
-  isUpper,
-  toggleShift,
-  onAlphaCycle, // ['a','b','c'] 같은 소문자 배열
-  onInsertChar,
-  onInsertCharCycle, // 구두점용
-  onBackspace,
-  goHangulMode,
-  goNumberMode,
-  goSymbolMode,
-  slots = {},
-}) {
+// 영문 3x4식 키 배열을 렌더링하고, shift 상태는 KeyboardView Context에서 가져옵니다.
+export default function EnglishKeyboard() {
+  const { insertChar, insertCharCycle, backspace, updateLastJamo } =
+    useKeyboardInputContext();
+  const { getSlotsForMode } = useKeyboardSlotContext();
+  const {
+    isUpper,
+    toggleShift,
+    goHangulMode,
+    goNumberMode,
+    goSymbolMode,
+  } = useKeyboardViewContext();
+  const modeSlots = getSlotsForMode("english");
+
+  // 알파벳 cycle 입력 후 shift가 켜져 있으면 마지막 문자만 대문자로 보정합니다.
+  const handleAlphaCycle = (chars) => {
+    insertCharCycle(chars);
+
+    if (isUpper) {
+      updateLastJamo((lastJamo) => lastJamo.toUpperCase());
+    }
+  };
+
   const labelABC = isUpper ? "ABC" : "abc";
   const labelDEF = isUpper ? "DEF" : "def";
   const labelGHI = isUpper ? "GHI" : "ghi";
@@ -23,34 +37,34 @@ export default function EnglishKeyboard({
   const labelWXYZ = isUpper ? "WXYZ" : "wxyz";
 
   return (
-    <div className="cheon-grid">
+    <div className="cheon-grid" data-cji-mode="english">
       {/* 1행: (빈칸) | ,?! | ABC | DEF | ⌫ */}
       <KeyboardControlKey
         type="empty"
         mode="english"
-        slotName="controlTop"
-        slot={slots.controlTop}
-        onInsertChar={onInsertChar}
+        position="row1col1"
+        slot={modeSlots.row1col1}
+        onInsertChar={insertChar}
       />
       <button
         className="cheon-key"
-        onClick={() => onInsertCharCycle([",", "?", "!"])}
+        onClick={() => insertCharCycle([",", "?", "!"])}
       >
         ,?!
       </button>
       <button
         className="cheon-key"
-        onClick={() => onAlphaCycle(["a", "b", "c"])}
+        onClick={() => handleAlphaCycle(["a", "b", "c"])}
       >
         {labelABC}
       </button>
       <button
         className="cheon-key"
-        onClick={() => onAlphaCycle(["d", "e", "f"])}
+        onClick={() => handleAlphaCycle(["d", "e", "f"])}
       >
         {labelDEF}
       </button>
-      <button className="cheon-key cheon-key--func" onClick={onBackspace}>
+      <button className="cheon-key cheon-key--func" onClick={backspace}>
         ⌫
       </button>
 
@@ -62,27 +76,27 @@ export default function EnglishKeyboard({
       />
       <button
         className="cheon-key"
-        onClick={() => onAlphaCycle(["g", "h", "i"])}
+        onClick={() => handleAlphaCycle(["g", "h", "i"])}
       >
         {labelGHI}
       </button>
       <button
         className="cheon-key"
-        onClick={() => onAlphaCycle(["j", "k", "l"])}
+        onClick={() => handleAlphaCycle(["j", "k", "l"])}
       >
         {labelJKL}
       </button>
       <button
         className="cheon-key"
-        onClick={() => onAlphaCycle(["m", "n", "o"])}
+        onClick={() => handleAlphaCycle(["m", "n", "o"])}
       >
         {labelMNO}
       </button>
       <KeyboardSlotCell
         mode="english"
-        name="topRight"
-        slot={slots.topRight}
-        onInsertChar={onInsertChar}
+        position="row2col5"
+        slot={modeSlots.row2col5}
+        onInsertChar={insertChar}
       />
 
       {/* 3행: 기호 | PQRS | TUV | WXYZ | Shift */}
@@ -93,19 +107,19 @@ export default function EnglishKeyboard({
       />
       <button
         className="cheon-key"
-        onClick={() => onAlphaCycle(["p", "q", "r", "s"])}
+        onClick={() => handleAlphaCycle(["p", "q", "r", "s"])}
       >
         {labelPQRS}
       </button>
       <button
         className="cheon-key"
-        onClick={() => onAlphaCycle(["t", "u", "v"])}
+        onClick={() => handleAlphaCycle(["t", "u", "v"])}
       >
         {labelTUV}
       </button>
       <button
         className="cheon-key"
-        onClick={() => onAlphaCycle(["w", "x", "y", "z"])}
+        onClick={() => handleAlphaCycle(["w", "x", "y", "z"])}
       >
         {labelWXYZ}
       </button>
@@ -126,25 +140,25 @@ export default function EnglishKeyboard({
       />
       <KeyboardSlotCell
         mode="english"
-        name="bottomLeft"
-        slot={slots.bottomLeft}
-        onInsertChar={onInsertChar}
+        position="row4col2"
+        slot={modeSlots.row4col2}
+        onInsertChar={insertChar}
       />
       <KeyboardSlotCell
         mode="english"
-        name="bottomMiddle"
-        slot={slots.bottomMiddle}
-        onInsertChar={onInsertChar}
+        position="row4col3"
+        slot={modeSlots.row4col3}
+        onInsertChar={insertChar}
       />
       <button
         className="cheon-key cheon-key--space"
-        onClick={() => onInsertChar(" ")}
+        onClick={() => insertChar(" ")}
       >
         SPACE
       </button>
       <button
         className="cheon-key cheon-key--enter"
-        onClick={() => onInsertChar("\n")}
+        onClick={() => insertChar("\n")}
       >
         ↵
       </button>
