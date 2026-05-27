@@ -31,7 +31,17 @@ export function Playground() {
         placeholder="여기에 입력 내용이 반영됩니다"
       />
 
-      <CheonjiinKeyboard onChange={setText} />
+      <CheonjiinKeyboard
+        onChange={setText}
+        customKeys={{
+          common: {
+            row1col1: { value: "@" },
+          },
+          hangul: {
+            row3col5: { value: "#" },
+          },
+        }}
+      />
     </main>
   );
 }
