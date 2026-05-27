@@ -4,20 +4,49 @@ React에서 사용할 수 있는 천지인 기반 모바일 키보드 라이브�
 
 한글 천지인 입력, 영문, 숫자, 기호 키보드를 제공하고, 비어 있는 키 위치와 주요 스타일 토큰을 사용하는 쪽에서 설정할 수 있습니다.
 
-<p>
-  <img width="413" height="219" alt="천지인 키보드 한글 화면"
-    src="https://github.com/user-attachments/assets/0231541c-2411-4300-b808-7713dbdd089c" />
-</p>
+스마트폰 천지인 키보드를 **웹앱, PWA** 같은 환경에서도 쓸 수 있도록 만든 가상 키보드입니다.  
+<sub>공모전 파트너 단체에서 "수중에서 모바일 키보드가 너무 작아 기록이 힘들다"는 피드백을 받고 시작한 프로젝트입니다.</sub>
 
-<p>
-  <img width="402" height="207" alt="천지인 키보드 영문 화면"
-    src="https://github.com/user-attachments/assets/42c1af70-4277-4243-ae80-aee095e590ee" />
-</p>
+- 장갑을 끼거나, 물속/현장 환경처럼 **작은 쿼티 키보드를 누르기 어려운 상황**
+- 모바일 브라우저에서 **기본 키보드를 숨기고 화면 안에 큰 키보드를 띄우고 싶은 경우**
+- 특정 입력 칸에서만 **천지인 전용 입력 UX**를 제공하고 싶은 경우
 
-<p>
-  <img width="407" height="207" alt="천지인 키보드 숫자 화면"
-    src="https://github.com/user-attachments/assets/403f90e3-4f7d-47c5-adf4-8b7bc227d64a" />
-</p>
+에 기본 키패드 대신 사용할 수 있도록 설계되었습니다.
+
+<table>
+  <tr>
+    <td>
+      <img
+        width="260"
+        alt="천지인 키보드 - 한글 모드"
+        src="https://github.com/user-attachments/assets/b5176711-f6b6-4ef3-9a2b-093e0c27ec08"
+      />
+    </td>
+    <td>
+      <img
+        width="260"
+        alt="천지인 키보드 - 영문 모드"
+        src="https://github.com/user-attachments/assets/e74dd263-632a-4515-93d5-3dfa4b10a0e3"
+      />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img
+        width="260"
+        alt="천지인 키보드 - 숫자 모드"
+        src="https://github.com/user-attachments/assets/acfb0633-b05e-4c90-9b7a-f14b41034d94"
+      />
+    </td>
+    <td>
+      <img
+        width="260"
+        alt="천지인 키보드 - 기호 모드"
+        src="https://github.com/user-attachments/assets/8564312b-f880-486f-9dc7-15390e78f7b2"
+      />
+    </td>
+  </tr>
+</table>
 
 ## 설치
 
@@ -30,6 +59,8 @@ yarn add react-cji-keyboard
 ```
 
 ## 기본 사용법
+
+이 라이브러리는 입력 상태를 내부에서 관리하면서 `onChange(text: string)` 콜백으로 현재 전체 문자열을 전달합니다. TypeScript 프로젝트에서는 `index.d.ts`를 통해 타입이 인식되고, JS/JSX 환경에서도 동일한 코드로 사용할 수 있습니다.
 
 ```tsx
 import { useState } from "react";
@@ -150,8 +181,7 @@ type CheonjiinKeyboardCustomKey = {
 
 ## 스타일 커스터마이징
 
-`customStyle`은 키보드 전체와 버튼 공통 스타일만 다룹니다.
-한글/영어/숫자/기호처럼 모드별로 색상을 따로 나누거나, Enter/Space 같은 특정 키만 위한 스타일 prop은 제공하지 않습니다.
+`customStyle`은 키보드 전체와 버튼 공통 스타일만 다룹니다. 한글/영어/숫자/기호처럼 모드별로 색상을 따로 나누거나, Enter/Space 같은 특정 키만 위한 스타일 prop은 제공하지 않습니다.
 
 커스터마이징 범위는 아래 정도로 제한합니다.
 
