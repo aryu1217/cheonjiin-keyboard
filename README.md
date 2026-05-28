@@ -199,16 +199,16 @@ type CheonjiinKeyboardCustomKey = {
   customStyle={{
     "keyboard-bg": "#111827",
     "keyboard-border": "1px solid #374151",
-    "keyboard-radius": "12px",
+    "keyboard-radius": 12,
     "keyboard-margin": "16px 0 0",
-    "keyboard-padding": "10px",
-    "grid-gap": "6px",
+    "keyboard-padding": 10,
+    "grid-gap": 6,
     "key-bg": "#1f2937",
     "key-color": "#f9fafb",
     "key-border": "1px solid #4b5563",
-    "key-height": "48px",
-    "key-radius": "10px",
-    "key-font-size": "15px",
+    "key-height": 48,
+    "key-radius": 10,
+    "key-font-size": 15,
   }}
 />
 ```
@@ -219,6 +219,8 @@ type CheonjiinKeyboardCustomKey = {
 "keyboard-bg" -> --cheon-keyboard-bg
 "key-border"  -> --cheon-key-border
 ```
+
+길이 값에 해당하는 토큰은 숫자로 넘기면 내부에서 `px` 단위로 변환됩니다. 예를 들어 `"key-height": 48`은 `--cheon-key-height: 48px`로 적용됩니다. `keyboard-border`, `key-border`처럼 `1px solid #ddd` 형태가 필요한 값은 문자열로 넘겨야 합니다.
 
 ### customStyle 속성
 

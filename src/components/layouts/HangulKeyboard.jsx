@@ -29,24 +29,31 @@ export default function HangulKeyboard() {
         onInsertChar={insertChar}
       />
       <button
+        type="button"
         className="cheon-key cheon-key--stroke"
         onClick={() => pressVowelStroke("I")}
       >
         ㅣ
       </button>
       <button
+        type="button"
         className="cheon-key cheon-key--stroke"
         onClick={() => pressVowelStroke("D")}
       >
         ·
       </button>
       <button
+        type="button"
         className="cheon-key cheon-key--stroke"
         onClick={() => pressVowelStroke("H")}
       >
         ㅡ
       </button>
-      <button className="cheon-key cheon-key--func" onClick={backspace}>
+      <button
+        type="button"
+        className="cheon-key cheon-key--func"
+        onClick={backspace}
+      >
         ⌫
       </button>
 
@@ -57,24 +64,28 @@ export default function HangulKeyboard() {
         onClick={goNumberMode}
       />
       <button
+        type="button"
         className="cheon-key"
         onClick={() => pressConsonantCycle(["ㄱ", "ㅋ", "ㄲ"])}
       >
         ㄱㅋ
       </button>
       <button
+        type="button"
         className="cheon-key"
         onClick={() => pressConsonantCycle(["ㄴ", "ㄹ"])}
       >
         ㄴㄹ
       </button>
       <button
+        type="button"
         className="cheon-key"
         onClick={() => pressConsonantCycle(["ㄷ", "ㅌ", "ㄸ"])}
       >
         ㄷㅌ
       </button>
       <button
+        type="button"
         className="cheon-key"
         onClick={() => insertCharCycle(["?", "!"])}
       >
@@ -88,18 +99,21 @@ export default function HangulKeyboard() {
         onClick={goSymbolMode}
       />
       <button
+        type="button"
         className="cheon-key"
         onClick={() => pressConsonantCycle(["ㅂ", "ㅍ", "ㅃ"])}
       >
         ㅂㅍ
       </button>
       <button
+        type="button"
         className="cheon-key"
         onClick={() => pressConsonantCycle(["ㅅ", "ㅎ", "ㅆ"])}
       >
         ㅅㅎ
       </button>
       <button
+        type="button"
         className="cheon-key"
         onClick={() => pressConsonantCycle(["ㅈ", "ㅊ", "ㅉ"])}
       >
@@ -119,24 +133,28 @@ export default function HangulKeyboard() {
         onClick={goEnglishMode}
       />
       <button
+        type="button"
         className="cheon-key"
         onClick={() => insertCharCycle([".", ","])}
       >
         . ,
       </button>
       <button
+        type="button"
         className="cheon-key"
         onClick={() => pressConsonantCycle(["ㅇ", "ㅁ"])}
       >
         ㅇㅁ
       </button>
       <button
+        type="button"
         className="cheon-key cheon-key--space"
         onClick={() => insertChar(" ")}
       >
         SPACE
       </button>
       <button
+        type="button"
         className="cheon-key cheon-key--enter"
         onClick={() => insertChar("\n")}
       >

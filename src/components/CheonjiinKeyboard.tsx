@@ -31,24 +31,22 @@ type CustomKeys = {
 
 type CustomStyleValue = string | number;
 
-type CustomStyle = Partial<
-  Record<
-    | "keyboard-bg"
-    | "keyboard-padding"
-    | "keyboard-margin"
-    | "keyboard-border"
-    | "keyboard-radius"
-    | "grid-gap"
-    | "key-bg"
-    | "key-color"
-    | "key-border"
-    | "key-radius"
-    | "key-height"
-    | "key-font-size"
-    | "key-active-bg",
-    CustomStyleValue
-  >
->;
+type CustomStyleToken =
+  | "keyboard-bg"
+  | "keyboard-padding"
+  | "keyboard-margin"
+  | "keyboard-border"
+  | "keyboard-radius"
+  | "grid-gap"
+  | "key-bg"
+  | "key-color"
+  | "key-border"
+  | "key-radius"
+  | "key-height"
+  | "key-font-size"
+  | "key-active-bg";
+
+type CustomStyle = Partial<Record<CustomStyleToken, CustomStyleValue>>;
 
 type CheonjiinKeyboardProps = {
   onChange?: (value: string) => void;
@@ -59,7 +57,28 @@ type CheonjiinKeyboardProps = {
 };
 
 type KeyboardRootStyle = CSSProperties &
-  Record<`--cheon-${string}`, CustomStyleValue | undefined>;
+  Record<`--cheon-${string}`, string | undefined>;
+
+const PX_TOKENS = new Set<CustomStyleToken>([
+  "keyboard-padding",
+  "keyboard-margin",
+  "keyboard-radius",
+  "grid-gap",
+  "key-radius",
+  "key-height",
+  "key-font-size",
+]);
+
+function normalizeCustomStyleValue(
+  name: CustomStyleToken,
+  value: CustomStyleValue,
+) {
+  if (typeof value === "number" && PX_TOKENS.has(name)) {
+    return `${value}px`;
+  }
+
+  return String(value);
+}
 
 // 라이브러리 전용 스타일 토큰을 CSS 변수로 변환합니다.
 // 예: { "keyboard-bg": "#111" } -> { "--cheon-keyboard-bg": "#111" }
@@ -70,7 +89,11 @@ function toCssVariableStyle(customStyle?: CustomStyle): KeyboardRootStyle {
     (cssVariables, [name, value]) => {
       if (value === undefined) return cssVariables;
 
-      cssVariables[`--cheon-${name}`] = value;
+      const tokenName = name as CustomStyleToken;
+      cssVariables[`--cheon-${tokenName}`] = normalizeCustomStyleValue(
+        tokenName,
+        value,
+      );
       return cssVariables;
     },
     {},
