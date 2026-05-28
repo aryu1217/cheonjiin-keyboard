@@ -1,13 +1,12 @@
-// src/App.jsx
-import { useState } from "react";
-import CheonjiinKeyboard from "./index"; // 라이브러리 엔트리
-import "./index.css"; // 키보드 스타일 (src 쪽 CSS 경로에 맞게 수정)
+import React, { useState } from "react";
+import ReactDOM from "react-dom/client";
+import CheonjiinKeyboard from "../src";
 
-export default function App() {
+export function Playground() {
   const [text, setText] = useState("");
 
   return (
-    <div
+    <main
       style={{
         minHeight: "100vh",
         padding: "16px",
@@ -27,11 +26,28 @@ export default function App() {
           border: "1px solid #ddd",
           borderRadius: 8,
           padding: 8,
+          boxSizing: "border-box",
         }}
         placeholder="여기에 입력 내용이 반영됩니다"
       />
 
-      <CheonjiinKeyboard onChange={setText} />
-    </div>
+      <CheonjiinKeyboard
+        onChange={setText}
+        customKeys={{
+          common: {
+            row1col1: { value: "@" },
+          },
+          hangul: {
+            row3col5: { value: "#" },
+          },
+        }}
+      />
+    </main>
   );
 }
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <Playground />
+  </React.StrictMode>,
+);

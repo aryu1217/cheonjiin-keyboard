@@ -1,0 +1,77 @@
+.cheon-keyboard {
+  background: var(--cheon-keyboard-bg, #f5f6f8);
+  padding: var(--cheon-keyboard-padding, 8px);
+  margin: var(--cheon-keyboard-margin, 16px 0 0);
+  border: var(--cheon-keyboard-border, 0 solid transparent);
+  border-radius: var(--cheon-keyboard-radius, 0);
+  box-sizing: border-box;
+}
+
+.cheon-header {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 4px;
+  text-align: left;
+}
+
+.cheon-header strong {
+  white-space: pre-wrap;
+}
+
+.cheon-subheader {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.cheon-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: var(--cheon-key-height, 44px);
+  gap: var(--cheon-grid-gap, 4px);
+}
+
+.cheon-key {
+  border-radius: var(--cheon-key-radius, 6px);
+  border: var(--cheon-key-border, 1px solid #d8d8de);
+  background: var(--cheon-key-bg, #ffffff);
+  font-size: var(--cheon-key-font-size, 16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  user-select: none;
+  color: var(--cheon-key-color, #111);
+}
+
+.cheon-key:active {
+  background: var(--cheon-key-active-bg, #e0e7ff);
+}
+
+.cheon-key--func {
+  background: var(--cheon-key-bg, #f6f6f7);
+  color: var(--cheon-key-color, #111);
+  font-size: var(--cheon-key-font-size, 13px);
+}
+
+.cheon-key--enter {
+  background: var(--cheon-key-bg, #f6f6ff);
+  color: var(--cheon-key-color, #111);
+  font-weight: 500;
+}
+
+.cheon-key--space {
+  background: var(--cheon-key-bg, #ffffff);
+  color: var(--cheon-key-color, #111);
+  font-size: var(--cheon-key-font-size, 13px);
+}
+
+.cheon-key--empty {
+  background: transparent;
+  border-color: transparent;
+}
+
+.cheon-key--shift-on {
+  background: var(--cheon-key-active-bg, #dbeafe);
+}

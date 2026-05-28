@@ -1,16 +1,17 @@
-
 # react-cji-keyboard
 
-> **React용 천지인 + 영문 + 숫자 + 기호 커스텀 키보드 컴포넌트**
+React에서 사용할 수 있는 천지인 기반 모바일 키보드 라이브러리입니다.
+
+한글 천지인 입력, 영문, 숫자, 기호 키보드를 제공하고, 비어 있는 키 위치와 주요 스타일 토큰을 사용하는 쪽에서 설정할 수 있습니다.
 
 스마트폰 천지인 키보드를 **웹앱, PWA** 같은 환경에서도 쓸 수 있도록 만든 가상 키보드입니다.  
-<sub>(공모전 파트너 단체에서 “수중에서 모바일 키보드가 너무 작아 기록이 힘들다”는 피드백을 받고 시작한 프로젝트입니다.)</sub>
-- 장갑을 끼거나, 물속/현장 환경처럼 **작은 쿼티 키보드를 누르기 어려운 상황**,  
-- 모바일 브라우저에서 **기본 키보드를 숨기고 화면 안에 큰 키보드를 띄우고 싶은 경우**,  
+<sub>공모전 파트너 단체에서 "수중에서 모바일 키보드가 너무 작아 기록이 힘들다"는 피드백을 받고 시작한 프로젝트입니다.</sub>
+
+- 장갑을 끼거나, 물속/현장 환경처럼 **작은 쿼티 키보드를 누르기 어려운 상황**
+- 모바일 브라우저에서 **기본 키보드를 숨기고 화면 안에 큰 키보드를 띄우고 싶은 경우**
 - 특정 입력 칸에서만 **천지인 전용 입력 UX**를 제공하고 싶은 경우
 
 에 기본 키패드 대신 사용할 수 있도록 설계되었습니다.
-
 
 <table>
   <tr>
@@ -33,224 +34,251 @@
     <td>
       <img
         width="260"
-        alt="천지인 키보드 - 숫자/기호 모드1"
+        alt="천지인 키보드 - 숫자 모드"
         src="https://github.com/user-attachments/assets/acfb0633-b05e-4c90-9b7a-f14b41034d94"
       />
     </td>
     <td>
       <img
         width="260"
-        alt="천지인 키보드 - 숫자/기호 모드2"
+        alt="천지인 키보드 - 기호 모드"
         src="https://github.com/user-attachments/assets/8564312b-f880-486f-9dc7-15390e78f7b2"
       />
     </td>
   </tr>
 </table>
 
-
----
-
 ## 설치
 
 ```bash
 npm install react-cji-keyboard
-# 또는
+```
+
+```bash
 yarn add react-cji-keyboard
 ```
 
----
-
 ## 기본 사용법
 
-이 라이브러리는 **입력 상태를 내부에서 관리하면서** `onChange(text: string)` 콜백으로 완성된 문자열을 돌려줍니다.  
-TypeScript 프로젝트에서는 `index.d.ts`를 통해 자동으로 타입이 인식되고, JS/JSX 환경에서도 동일한 코드로 사용할 수 있습니다.
+이 라이브러리는 입력 상태를 내부에서 관리하면서 `onChange(text: string)` 콜백으로 현재 전체 문자열을 전달합니다. TypeScript 프로젝트에서는 `index.d.ts`를 통해 타입이 인식되고, JS/JSX 환경에서도 동일한 코드로 사용할 수 있습니다.
 
 ```tsx
 import { useState } from "react";
 import CheonjiinKeyboard from "react-cji-keyboard";
-import "react-cji-keyboard/style.css"; // ★ 기본 CSS
+import "react-cji-keyboard/style.css";
 
-function App() {
+export default function App() {
   const [value, setValue] = useState("");
 
   return (
     <div style={{ maxWidth: 420, margin: "0 auto", padding: 16 }}>
-      <h1>천지인 키보드 데모</h1>
-
-      {/* 실제 입력을 보여줄 필드 (readOnly로 두고 onChange로만 갱신) */}
       <textarea
         value={value}
         readOnly
-        rows={3}
+        rows={4}
+        placeholder="천지인 키보드로 입력해보세요"
         style={{
           width: "100%",
-          borderRadius: 8,
-          border: "1px solid #ddd",
-          padding: "8px 10px",
+          boxSizing: "border-box",
           marginBottom: 12,
-          whiteSpace: "pre-wrap",
+          padding: 10,
+          border: "1px solid #ddd",
+          borderRadius: 8,
+          resize: "none",
         }}
-        placeholder="천지인 키보드로 입력해보세요"
       />
 
-      {/* 가상 키보드 */}
       <CheonjiinKeyboard onChange={setValue} />
     </div>
   );
 }
-
-export default App;
 ```
 
-> JS/JSX 프로젝트에서도 **동일한 코드**를 사용할 수 있고,  
-> TypeScript에서는 `onChange` 인자와 `value`가 자동으로 `string` 타입으로 추론됩니다.
+`CheonjiinKeyboard`는 입력 상태를 내부에서 관리합니다. 키 입력이 바뀔 때마다 `onChange`로 전체 문자열을 전달하므로, 사용하는 쪽에서는 이 값을 input, textarea, 바텀시트 등에 연결하면 됩니다.
 
----
-
-## 컴포넌트 API
-
-### `<CheonjiinKeyboard />`
+## API
 
 ```ts
-export interface CheonjiinKeyboardProps {
-  value?: string;
-  onChange?: (text: string) => void;
+type CheonjiinKeyboardProps = {
+  onChange?: (value: string) => void;
+  customKeys?: CheonjiinKeyboardCustomKeys;
+  customStyle?: CheonjiinKeyboardCustomStyle;
   className?: string;
-}
-
-declare const CheonjiinKeyboard: React.FC<CheonjiinKeyboardProps>;
-
-export default CheonjiinKeyboard;
+  style?: React.CSSProperties;
+};
 ```
 
-#### `onChange`
-- 키보드에서 글자가 바뀔 때마다 호출됩니다.
-- 한글/영문/숫자/기호를 모두 포함한 **현재 전체 문자열**이 인자로 넘어옵니다.
+| prop | 타입 | 설명 |
+| --- | --- | --- |
+| `onChange` | `(value: string) => void` | 키보드 입력값이 바뀔 때마다 전체 문자열을 전달합니다. |
+| `customKeys` | `CheonjiinKeyboardCustomKeys` | 기본 레이아웃의 빈칸에 커스텀 키를 추가합니다. |
+| `customStyle` | `CheonjiinKeyboardCustomStyle` | 키보드 배경/테두리, 버튼 배경/테두리, 글자색, 글자 크기, 간격 등을 변경합니다. |
+| `className` | `string` | 키보드 루트 요소에 추가할 클래스입니다. |
+| `style` | `React.CSSProperties` | 키보드 루트 요소에 직접 적용할 인라인 스타일입니다. |
 
-보통 이렇게 사용합니다:
+## 커스텀 키 추가
 
-```tsx
-const [text, setText] = useState("");
-
-return (
-  <>
-    <textarea value={text} readOnly />
-    <CheonjiinKeyboard onChange={setText} />
-  </>
-);
-```
-
-
-#### `value` (선택)
-
-- 키보드의 값을 **바깥에서 직접 관리하고 싶을 때** 사용합니다.
-- 예를 들어, 상위 컴포넌트에서 상태를 들고 있다가 `onChange`로 받은 값을 다시 넣어주는 식으로 씁니다:
-
-```tsx
-const [text, setText] = useState("");
-
-return (
-  <CheonjiinKeyboard
-    value={text}
-    onChange={setText}
-  />
-);
-```
-
-- `value`를 지정하지 않으면, 키보드가 **자기 내부에서 값 상태를 관리**하면서 `onChange`로 결과만 알려줍니다.
-- 리셋 버튼으로 값 지우기, 다른 입력 컴포넌트와 값 공유하기 등
-  **외부에서 값에 간섭해야 할 때** `value`를 함께 사용하는 패턴이 편합니다.
-
-
-#### `className` (선택)
-
-- 키보드 최상위 래퍼에 **추가로 클래스명을 붙이고 싶을 때** 사용합니다.
-- 예를 들어, 화면 하단에 붙는 바텀시트 스타일로 쓰고 싶다면:
+기본 키보드 배치는 유지하고, 정해진 빈칸에 자주 쓰는 문자를 추가할 수 있습니다.
 
 ```tsx
 <CheonjiinKeyboard
-  onChange={setText}
-  className="fixed inset-x-0 bottom-0 border-t bg-white"
+  onChange={setValue}
+  customKeys={{
+    common: {
+      row1col1: { value: "@" },
+    },
+    hangul: {
+      row3col5: { value: "ㅋ" },
+    },
+    english: {
+      row2col5: { value: ".com" },
+      row4col2: { value: "." },
+      row4col3: { value: "," },
+    },
+    number: {
+      row2col5: { value: "-" },
+      row3col5: { value: "%" },
+    },
+  }}
 />
 ```
 
-처럼 프로젝트에서 사용하는 CSS / Tailwind 클래스와 함께 조합해서 쓸 수 있습니다.
+`customKeys`는 `mode -> position -> keyConfig` 구조입니다. 버튼 DOM과 클릭 처리는 라이브러리가 만들고, 사용자는 어떤 위치에 어떤 값이 입력될지만 설정합니다.
 
+### customKeys 위치
 
----
+| mode | position | 위치 |
+| --- | --- | --- |
+| `common` | `row1col1` | 모든 모드의 1행 1열 |
+| `hangul` | `row3col5` | 한글 모드 3행 5열 |
+| `english` | `row2col5` | 영어 모드 2행 5열 |
+| `english` | `row4col2` | 영어 모드 4행 2열 |
+| `english` | `row4col3` | 영어 모드 4행 3열 |
+| `number` | `row2col5` | 숫자 모드 2행 5열 |
+| `number` | `row3col5` | 숫자 모드 3행 5열 |
+
+`symbol` 모드는 별도 빈칸이 없습니다. 다만 `common.row1col1`에 넣은 키는 기호 모드를 포함한 모든 모드의 1행 1열에 표시됩니다.
+
+### customKeys 값
+
+```ts
+type CheonjiinKeyboardCustomKey = {
+  value: string;
+  label?: React.ReactNode;
+  ariaLabel?: string;
+  className?: string;
+};
+```
+
+| 속성 | 타입 | 설명 |
+| --- | --- | --- |
+| `value` | `string` | 키를 눌렀을 때 입력될 값입니다. 필수입니다. |
+| `label` | `React.ReactNode` | 키에 표시할 내용입니다. 생략하면 `value`가 표시됩니다. |
+| `ariaLabel` | `string` | 접근성 라벨입니다. |
+| `className` | `string` | 해당 커스텀 키에 추가할 클래스입니다. |
+
+지원하지 않는 mode나 position을 넘기면 개발 환경 콘솔에 경고를 출력하고 해당 키는 무시합니다.
 
 ## 스타일 커스터마이징
 
-기본 스타일은 `style.css` 에 정의된 **CSS 클래스 기반**입니다.  
-프로젝트에서 **같은 클래스 이름을 다시 정의하면** 손쉽게 테마를 변경할 수 있습니다.
+`customStyle`은 키보드 전체와 버튼 공통 스타일만 다룹니다. 한글/영어/숫자/기호처럼 모드별로 색상을 따로 나누거나, Enter/Space 같은 특정 키만 위한 스타일 prop은 제공하지 않습니다.
 
-### 기본 클래스 목록 (일부)
+커스터마이징 범위는 아래 정도로 제한합니다.
 
-- `.cheon-keyboard` – 키보드 전체 래퍼
-- `.cheon-grid` – 5열(또는 4열) 그리드 레이아웃
-- `.cheon-grid--english` – 영문 모드에서 4열 그리드
-- `.cheon-key` – 기본 키 스타일
-- `.cheon-key--func` – 기능 키 (한/영, 123, 기호, 백스페이스 등)
-- `.cheon-key--space` – 스페이스 키
-- `.cheon-key--enter` – 엔터 키
-- `.cheon-key--empty` – 비워두는 자리용 키
+| 범위 | 바꿀 수 있는 것 |
+| --- | --- |
+| 키보드 레이아웃 | 배경, padding, margin, border, border-radius |
+| 키 간격 | 버튼 사이 gap |
+| 버튼 | 배경, 글자색, border, border-radius, 높이 |
+| 텍스트 | 글자 크기 |
+| 인터랙션 | 누르는 동안의 버튼 배경 |
 
-### 예시 1) 다크 테마로 바꾸기 (CSS 덮어쓰기)
+```tsx
+<CheonjiinKeyboard
+  onChange={setValue}
+  customStyle={{
+    "keyboard-bg": "#111827",
+    "keyboard-border": "1px solid #374151",
+    "keyboard-radius": 12,
+    "keyboard-margin": "16px 0 0",
+    "keyboard-padding": 10,
+    "grid-gap": 6,
+    "key-bg": "#1f2937",
+    "key-color": "#f9fafb",
+    "key-border": "1px solid #4b5563",
+    "key-height": 48,
+    "key-radius": 10,
+    "key-font-size": 15,
+  }}
+/>
+```
+
+`customStyle`의 키는 내부에서 CSS 변수로 변환됩니다.
+
+```txt
+"keyboard-bg" -> --cheon-keyboard-bg
+"key-border"  -> --cheon-key-border
+```
+
+길이 값에 해당하는 토큰은 숫자로 넘기면 내부에서 `px` 단위로 변환됩니다. 예를 들어 `"key-height": 48`은 `--cheon-key-height: 48px`로 적용됩니다. `keyboard-border`, `key-border`처럼 `1px solid #ddd` 형태가 필요한 값은 문자열로 넘겨야 합니다.
+
+### customStyle 속성
+
+| 속성 | 대상 | 설명 |
+| --- | --- | --- |
+| `keyboard-bg` | 키보드 | 키보드 전체 배경 |
+| `keyboard-padding` | 키보드 | 키보드 내부 여백 |
+| `keyboard-margin` | 키보드 | 키보드 외부 여백 |
+| `keyboard-border` | 키보드 | 키보드 전체 테두리 |
+| `keyboard-radius` | 키보드 | 키보드 전체 모서리 둥글기 |
+| `grid-gap` | 레이아웃 | 버튼 사이 간격 |
+| `key-bg` | 버튼 | 버튼 배경 |
+| `key-color` | 버튼 | 버튼 글자색 |
+| `key-border` | 버튼 | 버튼 테두리 |
+| `key-radius` | 버튼 | 버튼 모서리 둥글기 |
+| `key-height` | 버튼 | 버튼 높이 |
+| `key-font-size` | 버튼 | 버튼 글자 크기 |
+| `key-active-bg` | 버튼 | 버튼을 누르는 동안의 배경 |
+
+더 세밀하게 제어해야 한다면 `className`을 넘겨 루트 클래스를 추가하고 CSS에서 직접 덮어쓸 수 있습니다.
+
+```tsx
+<CheonjiinKeyboard className="my-keyboard" onChange={setValue} />
+```
 
 ```css
-/* global.css 또는 App 전체에 적용되는 CSS에서 */
-.cheon-keyboard {
-  background: #020617;
-  padding: 12px;
-  border-radius: 16px 16px 0 0;
-}
-
-/* 모든 키 공통 스타일 */
-.cheon-key {
-  background: #111827;
-  color: #e5e7eb;
-  border-radius: 10px;
-  border: 1px solid #1f2937;
-  font-size: 16px;
-}
-
-/* 기능 키(한/영, 123, 기호, 백스페이스 등) 강조 */
-.cheon-key--func {
-  background: #1f2937;
-  color: #f9fafb;
-}
-
-/* 스페이스바 크게/연하게 */
-.cheon-key--space {
-  background: #0f172a;
-  color: #e5e7eb;
-  font-size: 14px;
+.my-keyboard .cheon-key--enter {
+  font-weight: 700;
 }
 ```
 
-이렇게 하면 라이브러리 기본 스타일 위에 덮어씌워져,  
-레이아웃 구조는 그대로 유지하면서 색감/테마만 바꿀 수 있습니다.
+## 입력창과 함께 사용하기
 
-### 예시 2) 입력창 + 바텀시트 형태로 사용하기 (Tailwind)
+키보드는 입력 로직과 키보드 UI만 제공합니다. 실제 입력창 포커스, 바텀시트 노출 여부, 커서 UI 등은 사용하는 애플리케이션에서 제어하는 것을 권장합니다.
+
 ```tsx
-import CheonjiinKeyboard from "react-cji-keyboard";
-import "react-cji-keyboard/style.css";
-
 function BottomSheetKeyboard({ open, value, onChange }) {
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 transition-transform duration-200
-      ${open ? "translate-y-0" : "translate-y-full"}`}
+      className={open ? "keyboard-sheet open" : "keyboard-sheet"}
+      aria-hidden={!open}
     >
-      <div className="mx-auto max-w-sm bg-white rounded-t-2xl shadow-xl p-3">
-        <textarea
-          value={value}
-          readOnly
-          className="w-full mb-2 p-2 rounded-md border text-sm"
-        />
-        <CheonjiinKeyboard onChange={onChange} />
-      </div>
+      <textarea value={value} readOnly rows={3} />
+      <CheonjiinKeyboard onChange={onChange} />
     </div>
   );
 }
 ```
+
+## 개발
+
+```bash
+npm run dev
+npm run lint
+npm run build
+npm run test:ci
+```
+
+## 라이선스
+
+MIT
