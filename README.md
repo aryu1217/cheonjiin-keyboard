@@ -65,7 +65,6 @@ yarn add react-cji-keyboard
 ```tsx
 import { useState } from "react";
 import CheonjiinKeyboard from "react-cji-keyboard";
-import "react-cji-keyboard/style.css";
 
 export default function App() {
   const [value, setValue] = useState("");

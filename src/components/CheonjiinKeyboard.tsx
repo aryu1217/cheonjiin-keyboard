@@ -1,5 +1,4 @@
 import type { CSSProperties, ReactNode } from "react";
-import "./CheonjiinKeyboard.css";
 import KeyboardInputProvider from "./input/KeyboardInputProvider";
 import KeyboardSlotProvider from "./slots/KeyboardSlotProvider";
 import { KeyboardView } from "./view/KeyboardView";
